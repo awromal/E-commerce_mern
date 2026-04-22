@@ -52,7 +52,7 @@ function CreateProduct() {
       submitData.append("countInStock", Number(formData.countInStock));
       submitData.append("image", imageFile);
 
-      const response = await fetch("http://localhost:5000/api/products", {
+      const response = await fetch("/api/products", {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${adminToken}`

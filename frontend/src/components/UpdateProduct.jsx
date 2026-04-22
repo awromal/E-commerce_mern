@@ -68,7 +68,7 @@ function UpdateProduct() {
          }
       }
 
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const response = await fetch(`/api/products/${id}`, {
         method: "PUT",
         headers: {
           "Authorization": `Bearer ${adminToken}`

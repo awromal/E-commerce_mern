@@ -20,7 +20,7 @@ const createProduct = async (req, res) => {
 
   // If a file was uploaded by multer, assign the static path to the image field
   if (req.file) {
-    product.image = `http://localhost:${process.env.PORT || 5000}/uploads/${req.file.filename}`;
+    product.image = `/uploads/${req.file.filename}`;
   }
 
   if (
@@ -82,7 +82,7 @@ const updateProduct = async (req, res) => {
 
   // Use multer file if one was explicitly uploaded during the update
   if (req.file) {
-    updates.image = `http://localhost:${process.env.PORT || 5000}/uploads/${req.file.filename}`;
+    updates.image = `/uploads/${req.file.filename}`;
   }
 
   if (!mongoose.Types.ObjectId.isValid(id)) {

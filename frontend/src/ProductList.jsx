@@ -35,7 +35,7 @@ function ProductList() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+        const response = await fetch(`/api/products/${id}`, {
           method: 'DELETE',
           headers: {
             "Authorization": `Bearer ${adminToken}`

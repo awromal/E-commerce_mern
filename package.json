@@ -1,24 +1,10 @@
 {
-  "name": "backend",
+  "name": "techstore-mern",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "Unified MERN E-Commerce App for Render",
   "scripts": {
-    "dev": "nodemon backend/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcryptjs": "^3.0.3",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.5.0",
-    "multer": "^2.1.1",
-    "nodemon": "^3.1.14"
+    "start": "node backend/server.js",
+    "dev": "nodemon --watch backend backend/server.js",
+    "build": "npm install --prefix frontend && npm run build --prefix frontend"
   }
 }
