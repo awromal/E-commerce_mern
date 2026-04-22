@@ -8,17 +8,20 @@ const getProducts = async (req, res) => {
     res.status(200).json({ success: true, data: products });
   } catch (error) {
     console.error("Error fetching products:", error.message);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Server Error: Failed to fetch products",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Server Error: Failed to fetch products",
+    });
   }
 };
 
 const createProduct = async (req, res) => {
   const product = req.body;
+
+  // If a file was uploaded by multer, assign the static path to the image field
+  if (req.file) {
+    product.image = `http://localhost:${process.env.PORT || 5000}/uploads/${req.file.filename}`;
+  }
 
   if (
     !product.name ||
@@ -38,17 +41,21 @@ const createProduct = async (req, res) => {
     res.status(201).json({ success: true, data: newProduct });
   } catch (error) {
     console.error("Error creating product:", error.message);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Server Error: Failed to create product",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Server Error: Failed to create product",
+    });
   }
 };
 
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid product ID" });
+  }
 
   try {
     const deletedProduct = await Product.findByIdAndDelete(id);
@@ -62,18 +69,21 @@ const deleteProduct = async (req, res) => {
       .json({ success: true, message: "Product deleted successfully" });
   } catch (error) {
     console.error("Error deleting product:", error.message);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Server Error: Failed to delete product",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Server Error: Failed to delete product",
+    });
   }
 };
 
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
+
+  // Use multer file if one was explicitly uploaded during the update
+  if (req.file) {
+    updates.image = `http://localhost:${process.env.PORT || 5000}/uploads/${req.file.filename}`;
+  }
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res
@@ -93,12 +103,10 @@ const updateProduct = async (req, res) => {
     res.status(200).json({ success: true, data: updatedProduct });
   } catch (error) {
     console.error("Error updating product:", error.message);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Server Error: Failed to update product",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Server Error: Failed to update product",
+    });
   }
 };
 
