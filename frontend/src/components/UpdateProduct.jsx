@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import API_URL from '../api';
 
 function UpdateProduct() {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ function UpdateProduct() {
          }
       }
 
-      const response = await fetch(`/api/products/${id}`, {
+      const response = await fetch(`${API_URL}/api/products/${id}`, {
         method: "PUT",
         headers: {
           "Authorization": `Bearer ${adminToken}`

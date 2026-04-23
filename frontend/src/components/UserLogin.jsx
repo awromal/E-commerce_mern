@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useUserAuth } from '../context/UserAuthContext';
+import API_URL from '../api';
 
 function UserLogin() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -17,7 +18,7 @@ function UserLogin() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/users/login', {
+      const res = await fetch(`${API_URL}/api/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

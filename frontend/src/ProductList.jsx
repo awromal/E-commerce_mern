@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "./components/ProductCard";
 import { useAuth } from "./context/AuthContext";
+import API_URL from "./api";
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -10,7 +11,7 @@ function ProductList() {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/products");
+      const response = await fetch(`${API_URL}/api/products`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -23,7 +24,7 @@ function ProductList() {
       setIsLoading(false);
     } catch (err) {
       console.error("Error fetching products:", err);
-      setError("Failed to load products. Please ensure the backend server is running on port 5000.");
+      setError("Failed to load products. Please ensure the backend server is running.");
       setIsLoading(false);
     }
   };
@@ -35,7 +36,7 @@ function ProductList() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        const response = await fetch(`/api/products/${id}`, {
+        const response = await fetch(`${API_URL}/api/products/${id}`, {
           method: 'DELETE',
           headers: {
             "Authorization": `Bearer ${adminToken}`

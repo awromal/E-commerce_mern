@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserAuth } from '../context/UserAuthContext';
+import API_URL from '../api';
 
 function Cart() {
   const { userToken, isUserLoggedIn } = useUserAuth();
@@ -10,7 +11,7 @@ function Cart() {
 
   const fetchCart = useCallback(async () => {
     try {
-      const res = await fetch('/api/cart', {
+      const res = await fetch(`${API_URL}/api/cart`, {
         headers: { Authorization: `Bearer ${userToken}` },
       });
       const data = await res.json();
@@ -31,7 +32,7 @@ function Cart() {
   const updateQuantity = async (productId, quantity) => {
     if (quantity < 1) return;
     try {
-      const res = await fetch(`/api/cart/${productId}`, {
+      const res = await fetch(`${API_URL}/api/cart/${productId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${userToken}` },
         body: JSON.stringify({ quantity }),
@@ -45,7 +46,7 @@ function Cart() {
 
   const removeItem = async (productId) => {
     try {
-      const res = await fetch(`/api/cart/${productId}`, {
+      const res = await fetch(`${API_URL}/api/cart/${productId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${userToken}` },
       });
@@ -59,7 +60,7 @@ function Cart() {
   const clearCart = async () => {
     if (!window.confirm('Clear entire cart?')) return;
     try {
-      const res = await fetch('/api/cart/clear', {
+      const res = await fetch(`${API_URL}/api/cart/clear`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${userToken}` },
       });

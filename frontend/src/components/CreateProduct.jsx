@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import API_URL from '../api';
 
 function CreateProduct() {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ function CreateProduct() {
       submitData.append("countInStock", Number(formData.countInStock));
       submitData.append("image", imageFile);
 
-      const response = await fetch("/api/products", {
+      const response = await fetch(`${API_URL}/api/products`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${adminToken}`

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useUserAuth } from '../context/UserAuthContext';
+import API_URL from '../api';
 
 function ProductCard({ product, onDelete }) {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function ProductCard({ product, onDelete }) {
     setAddingToCart(true);
     setCartMsg(null);
     try {
-      const res = await fetch('/api/cart', {
+      const res = await fetch(`${API_URL}/api/cart`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
